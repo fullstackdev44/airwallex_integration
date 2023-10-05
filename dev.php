@@ -1,7 +1,7 @@
 <?php
 
 $data = array(
-    'username' => 'your_username',
+    'username' => 'your_u`sername',
     'password' => 'your_password'
 );
 
@@ -37,7 +37,9 @@ $getToken = $token['token'];
 
 $getToken; // bearer token
 
-// create customer Api.
+/**
+ * Create Customer Api.
+ */
 
 $curl = curl_init();
 
@@ -74,9 +76,11 @@ $cust = json_decode($responseCustomer,true);
 // print_r($cust);
 // die;
 
-$customerId = "cus_hkdmppgswgpbweffplk";
+$customerId = "cus_hkdmppgswgpbweffplk"; // get custId
 
-//create payment intent.
+/**
+ * Create payment intent Api.
+ */
 
 $curl = curl_init();
 
@@ -113,8 +117,11 @@ $paymentIntent = json_decode($responsePayIntent,true);
 // print_r($paymentIntent);
 // die;
 
-$intentId = $paymentIntent['id'];
+$intentId = $paymentIntent['id']; // get paymentIntent_id.
 
+/**
+ * Create Confirm Payment intent Api.
+ */
 
 $curl = curl_init();
 
@@ -604,85 +611,3 @@ $paymentIntentCon = json_decode($responseCon,true);
 echo "<pre>";
 print_r($paymentIntentCon);
 die;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://api-demo.airwallex.com/api/v1/pa/payment_intents/'.$intentId.'/confirm',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS =>'{
-    "request_id": "b5c066a9-9c8a-4bd4-9734-03x5scxz7",
-    "payment_method": {
-        "type": "card",
-        "card": {
-            "billing": {
-                "address": {
-                    "city": "Port Kamren",
-                    "country_code": "US",
-                    "postcode": "25000",
-                    "state": "West Grantmouth",
-                    "street": "87039 Kaleigh Terrace"
-                },
-                "first_name": "Ariel",
-                "last_name": "Yost"
-            },
-            "expiry_month": "12",
-            "expiry_year": "2030",
-            "number": "4111111111111111",
-            "cvc" : "123"
-        }
-    },
-    "payment_method_options": {
-        "card": {
-            "auto_capture": true
-        }
-    }
-}',
-  CURLOPT_HTTPHEADER => array(
-    'Content-Type: application/json',
-    'Authorization: Bearer ' . $getToken,
-  ),
-));
-
-$responsePaymentConfirm = curl_exec($curl);
-
-curl_close($curl);
-
-$paymentIntent_confirm = json_decode($responsePaymentConfirm,true);
-
-echo "<pre>";
-print_r($paymentIntent_confirm);
-die;
-
-
-
-
-
-
-
-
-
-
