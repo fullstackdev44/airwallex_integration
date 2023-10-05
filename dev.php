@@ -1,10 +1,13 @@
 <?php
 
+/**
+ * Authorization.
+ */
+
 $data = array(
     'username' => 'your_u`sername',
     'password' => 'your_password'
 );
-
 
 $data_string = json_encode($data);
 
